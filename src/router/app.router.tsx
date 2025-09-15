@@ -18,13 +18,17 @@ export const appRouter = createBrowserRouter([
         element: <HomePage/>
       },
       {
-        path: "heroes/1",
+        path: "heroes/:idSlug",
         element: <HeroPage/>
       },
       {
         path: "search",
         element: <SearchPage/>
-      }
+      },
+      {
+        path: "*",
+        element: <Navigate to={'/'}/>
+      },
     ]
   },
   {
@@ -37,9 +41,6 @@ export const appRouter = createBrowserRouter([
       },
     ]
   },
-  {
-    path: "*",
-    element: <Navigate to={'/'}/>
-  },
+
 
 ])
