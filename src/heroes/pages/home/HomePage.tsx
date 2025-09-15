@@ -2,9 +2,10 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {CustomJumbotron} from "@/components/custom/CustomJumbotron.tsx";
 import {HeroStats} from "@/heroes/components/HeroStats.tsx";
 import {HeroGrid} from "@/heroes/components/HeroGrid.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {CustomPagination} from "@/components/custom/CustomPagination.tsx";
 import CustomBreadcrumb from "@/components/custom/CustomBreadcrumb.tsx";
+import {getHeroesByPage} from "@/heroes/actions/get-heroes-by-page.action.ts";
 
 export const HomePage = () => {
 
@@ -14,6 +15,14 @@ export const HomePage = () => {
     'heroes' |
     'villains'
   >('all');
+
+  useEffect(() => {
+    getHeroesByPage().then(
+      (heroes) => {
+        console.log({heroes})
+      }
+    )
+  }, []);
 
   return (
     <>

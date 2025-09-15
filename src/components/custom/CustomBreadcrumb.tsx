@@ -31,7 +31,7 @@ const CustomBreadcrumb = (
         </BreadcrumbItem>
         {
           breadcrumbs?.map((breadcrumb) => (
-            <div className={'flex flex-row items-center'}>
+            <div className={'flex flex-row items-center'} key={breadcrumb.label + breadcrumb.to}>
               <BreadcrumbItem>
                 <BreadcrumbSeparator>
                   <SlashIcon />
