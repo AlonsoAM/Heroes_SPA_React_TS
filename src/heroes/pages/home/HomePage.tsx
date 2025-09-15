@@ -2,10 +2,11 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {CustomJumbotron} from "@/components/custom/CustomJumbotron.tsx";
 import {HeroStats} from "@/heroes/components/HeroStats.tsx";
 import {HeroGrid} from "@/heroes/components/HeroGrid.tsx";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {CustomPagination} from "@/components/custom/CustomPagination.tsx";
 import CustomBreadcrumb from "@/components/custom/CustomBreadcrumb.tsx";
-import {getHeroesByPage} from "@/heroes/actions/get-heroes-by-page.action.ts";
+import {getHeroesByPageAction} from "@/heroes/actions/get-heroes-by-page.action.ts";
+import {useQuery} from "@tanstack/react-query";
 
 export const HomePage = () => {
 
@@ -16,13 +17,16 @@ export const HomePage = () => {
     'villains'
   >('all');
 
-  useEffect(() => {
-    getHeroesByPage().then(
-      (heroes) => {
-        console.log({heroes})
-      }
-    )
-  }, []);
+  const {data} = useQuery(
+    {
+      queryKey: ['heroes'],
+      queryFn: () => getHeroesByPageAction(),
+      staleTime: 1000 * 60 * 5,
+    }
+  )
+
+  console.log({data})
+
 
   return (
     <>
