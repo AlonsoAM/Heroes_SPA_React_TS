@@ -17,6 +17,7 @@ export const HomePage = () => {
   const activeTabParam = searchParams.get('tab') ?? 'all'
   const page = searchParams.get('page') ?? '1'
   const limit = searchParams.get('limit') ?? '6'
+  const category = searchParams.get('category') ?? 'all'
 
   const selectedTab = useMemo(() => {
     const validTabs = ['all', 'favorites', 'heroes', 'villains']
@@ -26,7 +27,7 @@ export const HomePage = () => {
     return 'all'
   }, [activeTabParam])
 
-  const {data: heroesResponse} = usePaginatedHero(+page, +limit)
+  const {data: heroesResponse} = usePaginatedHero(+page, +limit, category)
   const {data: summary} = useHeroSummary()
 
   return (
@@ -49,6 +50,8 @@ export const HomePage = () => {
             onClick={() => setSearchParams(
               prev => {
                 prev.set('tab', 'all')
+                prev.set('category', 'all')
+                prev.set('page', '1')
                 return prev.toString()
               }
             )}
@@ -68,6 +71,8 @@ export const HomePage = () => {
             onClick={() => setSearchParams(
               prev => {
                 prev.set('tab', 'heroes')
+                prev.set('category', 'hero')
+                prev.set('page', '1')
                 return prev.toString()
               }
             )}
@@ -76,6 +81,8 @@ export const HomePage = () => {
             onClick={() => setSearchParams(
               prev => {
                 prev.set('tab', 'villains')
+                prev.set('category', 'villain')
+                prev.set('page', '1')
                 return prev.toString()
               }
             )}
@@ -87,15 +94,15 @@ export const HomePage = () => {
         </TabsContent>
         <TabsContent value={'favorites'}>
           {/*<h1>Todos los favoritos</h1>*/}
-          <HeroGrid heroes={[]}/>
+          <HeroGrid heroes={heroesResponse?.heroes ?? []}/>
         </TabsContent>
         <TabsContent value={'heroes'}>
           {/*<h1>Todos los heroes</h1>*/}
-          <HeroGrid heroes={[]}/>
+          <HeroGrid heroes={heroesResponse?.heroes ?? []}/>
         </TabsContent>
         <TabsContent value={'villains'}>
           {/*<h1>Todos los villanos</h1>*/}
-          <HeroGrid heroes={[]}/>
+          <HeroGrid heroes={heroesResponse?.heroes ?? []}/>
         </TabsContent>
       </Tabs>
 
