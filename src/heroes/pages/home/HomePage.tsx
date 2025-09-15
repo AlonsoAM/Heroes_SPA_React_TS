@@ -4,6 +4,7 @@ import {HeroStats} from "@/heroes/components/HeroStats.tsx";
 import {HeroGrid} from "@/heroes/components/HeroGrid.tsx";
 import {useState} from "react";
 import {CustomPagination} from "@/components/custom/CustomPagination.tsx";
+import CustomBreadcrumb from "@/components/custom/CustomBreadcrumb.tsx";
 
 export const HomePage = () => {
 
@@ -21,6 +22,8 @@ export const HomePage = () => {
         title={'Universo de Superheroes'}
         description={'Descubre, explora y administra tus superheroes y villanos favoritos'}
       />
+
+      <CustomBreadcrumb currentPage={'Super Héroes'}/>
 
       {/* Stats Dashboard */}
       <HeroStats/>
