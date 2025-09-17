@@ -1,37 +1,56 @@
-import {Filter, Grid, Plus, Search, SortAsc} from "lucide-react";
-import {Input} from "@/components/ui/input.tsx";
-import {Button} from "@/components/ui/button.tsx";
+import { Filter, Grid, Plus, Search, SortAsc } from "lucide-react";
+import { Input } from "@/components/ui/input.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import { useRef } from "react";
+import { useSearchParams } from "react-router";
 
+export const SearchControls = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const value = inputRef.current?.value || "";
+      setSearchParams((prev) => {
+        prev.set("name", value);
+        return prev;
+      });
+    }
+  };
 
-export const SeacrhControls = () => {
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-4 mb-8">
         {/* Search */}
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5"/>
-          <Input placeholder="Search heroes, villains, powers, teams..." className="pl-12 bg-white h-12 text-lg"/>
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+          <Input
+            placeholder="Search heroes, villains, powers, teams..."
+            className="pl-12 bg-white h-12 text-lg"
+            ref={inputRef}
+            onKeyDown={handleKeyDown}
+            defaultValue={searchParams.get("name") || ""}
+          />
         </div>
 
         {/* Action buttons */}
         <div className="flex gap-2">
           <Button variant="outline" className="h-12 bg-transparent">
-            <Filter className="h-4 w-4 mr-2"/>
+            <Filter className="h-4 w-4 mr-2" />
             Filters
           </Button>
 
           <Button variant="outline" className="h-12 bg-transparent">
-            <SortAsc className="h-4 w-4 mr-2"/>
+            <SortAsc className="h-4 w-4 mr-2" />
             Sort by Name
           </Button>
 
           <Button variant="outline" className="h-12 bg-transparent">
-            <Grid className="h-4 w-4"/>
+            <Grid className="h-4 w-4" />
           </Button>
 
           <Button className="h-12">
-            <Plus className="h-4 w-4 mr-2"/>
+            <Plus className="h-4 w-4 mr-2" />
             Add Character
           </Button>
         </div>
@@ -73,13 +92,15 @@ export const SeacrhControls = () => {
           <label className="text-sm font-medium">Minimum Strength: 0/10</label>
           <div className="relative flex w-full touch-none select-none items-center mt-2">
             <div className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary">
-              <div className="absolute h-full bg-primary" style={{width: "0%"}}/>
+              <div
+                className="absolute h-full bg-primary"
+                style={{ width: "0%" }}
+              />
             </div>
-            <div
-              className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors"/>
+            <div className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors" />
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
