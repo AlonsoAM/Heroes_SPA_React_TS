@@ -9,7 +9,7 @@ import type { Hero } from "../types/hero.interface";
 interface FavoriteHeroContext {
   // state
   favorites: Hero[];
-  favoritCount: number;
+  favoriteCount: number;
 
   // methods
   toggleFavorite: (hero: Hero) => void;
@@ -48,7 +48,7 @@ export const FavoriteHeroProvider = ({ children }: PropsWithChildren) => {
     <FavoriteHeroContext
       value={{
         favorites: favorites,
-        favoritCount: favorites.length,
+        favoriteCount: favorites.length,
         toggleFavorite: toggleFavorite,
         isFavorite: isFavorite,
       }}
