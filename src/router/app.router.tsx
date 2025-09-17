@@ -1,46 +1,44 @@
-import {createBrowserRouter, Navigate} from "react-router";
-import {HomePage} from "@/heroes/pages/home/HomePage.tsx";
-import {HeroPage} from "@/heroes/pages/hero/HeroPage.tsx";
-import {HeroesLayout} from "@/heroes/layouts/HeroesLayout.tsx";
-import {AdminLayout} from "@/admin/layouts/AdminLayout.tsx";
-import {lazy} from "react";
+import { createBrowserRouter, Navigate } from "react-router";
+import { HomePage } from "@/heroes/pages/home/HomePage.tsx";
+import { HeroPage } from "@/heroes/pages/hero/HeroPage.tsx";
+import { HeroesLayout } from "@/heroes/layouts/HeroesLayout.tsx";
+import { AdminLayout } from "@/admin/layouts/AdminLayout.tsx";
+import { lazy } from "react";
 
-const AdminPage = lazy(() => import("@/admin/pages/AdminPage.tsx"))
-const SearchPage = lazy(() => import("@/heroes/pages/search/SearchPage.tsx"))
+const AdminPage = lazy(() => import("@/admin/pages/AdminPage.tsx"));
+const SearchPage = lazy(() => import("@/heroes/pages/search/SearchPage.tsx"));
 
 export const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <HeroesLayout/>,
+    element: <HeroesLayout />,
     children: [
       {
         index: true,
-        element: <HomePage/>
+        element: <HomePage />,
       },
       {
         path: "heroes/:idSlug",
-        element: <HeroPage/>
+        element: <HeroPage />,
       },
       {
         path: "search",
-        element: <SearchPage/>
+        element: <SearchPage />,
       },
       {
         path: "*",
-        element: <Navigate to={'/'}/>
+        element: <Navigate to={"/"} />,
       },
-    ]
+    ],
   },
   {
     path: "/admin",
-    element: <AdminLayout/>,
+    element: <AdminLayout />,
     children: [
       {
         index: true,
-        element: <AdminPage/>
+        element: <AdminPage />,
       },
-    ]
+    ],
   },
-
-
-])
+]);
